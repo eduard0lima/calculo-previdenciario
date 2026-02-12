@@ -50,6 +50,8 @@ public class Main {
         System.out.println("- Percentual Meses Anteriores: " + ReportFormatter.formatPercent(result.getPercentualMesesAnteriores()));
         System.out.println("- Percentual Meses Atuais: " + ReportFormatter.formatPercent(result.getPercentualMesesAtuais()));
 
+        System.out.println("\n- Valor relativo ao exercício atual: " + ReportFormatter.formatMoney(result.getValorRefMesesAtuais()));
+
         System.out.println("\nTaxas do período:");
         System.out.println("- Taxa Período Linear: " + ReportFormatter.formatPercent(result.getTaxaPeriodoLinear()));
         System.out.println("- Taxa Período Ajustada: " + ReportFormatter.formatPercent(result.getTaxaPeriodoAjustada()));
