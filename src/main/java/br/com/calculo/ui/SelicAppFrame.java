@@ -20,6 +20,7 @@ public class SelicAppFrame extends JFrame {
         JPanel root = new JPanel(new BorderLayout(8, 8));
         root.add(formPanel, BorderLayout.NORTH);
         root.add(resultPanel, BorderLayout.CENTER);
+        root.add(new FooterBannerPanel(), BorderLayout.SOUTH);
 
         setContentPane(root);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
