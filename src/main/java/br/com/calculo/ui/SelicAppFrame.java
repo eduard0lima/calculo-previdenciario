@@ -18,9 +18,12 @@ public class SelicAppFrame extends JFrame {
         formPanel.getExemploButton().addActionListener(e -> controller.loadExample());
 
         JPanel root = new JPanel(new BorderLayout(8, 8));
-        root.add(formPanel, BorderLayout.NORTH);
+        JPanel headerPanel = new JPanel(new BorderLayout(8, 8));
+        headerPanel.add(new FooterBannerPanel(), BorderLayout.NORTH);
+        headerPanel.add(formPanel, BorderLayout.CENTER);
+
+        root.add(headerPanel, BorderLayout.NORTH);
         root.add(resultPanel, BorderLayout.CENTER);
-        root.add(new FooterBannerPanel(), BorderLayout.SOUTH);
 
         setContentPane(root);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
