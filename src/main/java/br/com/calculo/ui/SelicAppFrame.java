@@ -16,6 +16,7 @@ public class SelicAppFrame extends JFrame {
         formPanel.getCalcularButton().addActionListener(e -> controller.calculate());
         formPanel.getLimparButton().addActionListener(e -> controller.clear());
         formPanel.getExemploButton().addActionListener(e -> controller.loadExample());
+        formPanel.getBuscarSelicButton().addActionListener(e -> controller.startFetchSelic());
 
         JPanel root = new JPanel(new BorderLayout(8, 8));
         JPanel headerPanel = new JPanel(new BorderLayout(8, 8));
@@ -29,5 +30,7 @@ public class SelicAppFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
+
+        controller.startFetchSelic();
     }
 }
