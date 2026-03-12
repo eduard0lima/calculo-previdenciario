@@ -11,9 +11,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -54,14 +54,21 @@ public class SelicFormPanel extends JPanel {
 
         addLabeledField("Data Inicial (DIB)", dataInicialField, "Formato: dd/MM/yyyy", 0);
         addLabeledField("Data Final (DIP)", dataFinalField, "Formato: dd/MM/yyyy", 1);
-        addLabeledField("Data do Acordo", dataAcordoField, "Formato: dd/MM/yyyy", buscarSelicButton, 2);
+        addLabeledField("Data do Acordo", dataAcordoField, "Formato: dd/MM/yyyy", 2);
         addLabeledField("Valor Total (R$)", valorTotalField, "Ex.: 8.500,00", 3);
         addLabeledField("Selic Anual (%)", selicAnualField, "Informe em percentual. Ex.: 15,00", 4);
 
         GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 0;
+        c.gridx = 1;
         c.gridy = 5;
-        c.gridwidth = 4;
+        c.anchor = GridBagConstraints.LINE_START;
+        c.insets = new Insets(0, 0, 8, 8);
+        add(buscarSelicButton, c);
+
+        c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 6;
+        c.gridwidth = 3;
         c.anchor = GridBagConstraints.LINE_START;
         c.insets = new Insets(8, 8, 8, 8);
 
@@ -73,8 +80,8 @@ public class SelicFormPanel extends JPanel {
 
         c = new GridBagConstraints();
         c.gridx = 0;
-        c.gridy = 6;
-        c.gridwidth = 4;
+        c.gridy = 7;
+        c.gridwidth = 3;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.insets = new Insets(0, 8, 8, 8);
         add(statusLabel, c);
@@ -96,6 +103,8 @@ public class SelicFormPanel extends JPanel {
         dataAcordoField.setText(LocalDate.now().format(DATE_FORMAT));
         valorTotalField.setText("");
         selicAnualField.setText("");
+        selicAnualField.setEditable(true);
+        selicAnualField.setEnabled(true);
         statusLabel.setText("Pronto para consultar a SELIC.");
     }
 
@@ -128,31 +137,23 @@ public class SelicFormPanel extends JPanel {
     }
 
     public void setSelicLoadingState() {
-        selicAnualField.setText("Aguarde...");
-        selicAnualField.setEditable(false);
-        selicAnualField.setEnabled(false);
         buscarSelicButton.setEnabled(false);
     }
 
     public void setSelicAutoValue(BigDecimal value) {
         selicAnualField.setText(formatPercent(value));
-        selicAnualField.setEditable(false);
-        selicAnualField.setEnabled(false);
+        selicAnualField.setEditable(true);
+        selicAnualField.setEnabled(true);
         buscarSelicButton.setEnabled(true);
     }
 
     public void enableManualSelicInput() {
-        selicAnualField.setText("");
         selicAnualField.setEditable(true);
         selicAnualField.setEnabled(true);
         buscarSelicButton.setEnabled(true);
     }
 
     private void addLabeledField(String labelText, JTextField field, String hint, int row) {
-        addLabeledField(labelText, field, hint, null, row);
-    }
-
-    private void addLabeledField(String labelText, JTextField field, String hint, JButton extraButton, int row) {
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = row;
@@ -174,15 +175,6 @@ public class SelicFormPanel extends JPanel {
         c.anchor = GridBagConstraints.LINE_START;
         c.insets = new Insets(4, 0, 4, 8);
         add(new JLabel(hint), c);
-
-        if (extraButton != null) {
-            c = new GridBagConstraints();
-            c.gridx = 3;
-            c.gridy = row;
-            c.anchor = GridBagConstraints.LINE_START;
-            c.insets = new Insets(4, 0, 4, 8);
-            add(extraButton, c);
-        }
     }
 
     private String formatPercent(BigDecimal value) {
